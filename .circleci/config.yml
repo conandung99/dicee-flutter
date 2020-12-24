@@ -1,0 +1,71 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+jobs:
+  build_android:    
+    docker:
+      - image: cirrusci/flutter:latest
+    # branches:
+    #   only: master
+
+    steps:
+      - checkout
+
+      - run:
+          name: Run Flutter doctor
+          command: flutter doctor
+      - run:
+          name: Run Flutter pub get
+          command: flutter pub get
+
+      - run:
+          name: Run Flutter analyze
+          command: flutter analyze
+
+      # - run:
+      #     name: Run the application tests
+      #     command: flutter test
+
+      - run:
+          name: Build the Android version
+          command: flutter build apk --release
+
+      - store_artifacts:
+          path: build/app/outputs/apk/release/app-release.apk
+
+  build_ios:    
+    docker:
+      - image: cirrusci/flutter:latest
+    # branches:
+    #   only: master
+
+    steps:
+      - checkout
+
+      - run:
+          name: Run Flutter doctor
+          command: flutter doctor
+      - run:
+          name: Run Flutter pub get
+          command: flutter pub get
+
+      - run:
+          name: Run Flutter analyze
+          command: flutter analyze
+
+      # - run:
+      #     name: Run the application tests
+      #     command: flutter test
+
+      - run:
+          name: Build the iOS version
+          command: flutter build ios --release --no-codesign
+
+      - store_artifacts:
+          path: build/ios/iphoneos/Runner.app
+# Orchestrate our job run sequence
+workflows:
+  build_app:
+    jobs:
+      - build_android
+      - build_ios
