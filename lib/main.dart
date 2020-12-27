@@ -50,7 +50,7 @@ class _DicePaceState extends State<DicePace> {
                 padding: const EdgeInsets.all(16.0),
                 child: FlatButton(
                     onPressed: () =>
-                        chageNumberOfDice, // or changeNumberofDice()
+                        chageNumberOfDice(), // if just changeNumberofDice -> nothing happen
                     child: Image.asset('images/dice$leftDiceNumber.png')),
               ),
             ),
