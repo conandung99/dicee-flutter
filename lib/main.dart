@@ -26,6 +26,16 @@ class _DicePaceState extends State<DicePace> {
   int leftDiceNumber = 1;
   int rightDiceNumber = 2;
 
+  void chageNumberOfDice() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) + 1;
+
+      print('Pressed left button ($leftDiceNumber)');
+      print('Pressed right number ($rightDiceNumber)');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // leftDiceNumber = 4; // This will affect to setStage() this will take 4 in any case
@@ -39,15 +49,8 @@ class _DicePaceState extends State<DicePace> {
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: FlatButton(
-                    onPressed: () {
-                      setState(() {
-                        leftDiceNumber = Random().nextInt(6) + 1;
-                        rightDiceNumber = Random().nextInt(6) + 1;
-
-                        print('Pressed left button ($leftDiceNumber)');
-                        print('Pressed right number ($rightDiceNumber)');
-                      });
-                    },
+                    onPressed: () =>
+                        chageNumberOfDice, // or changeNumberofDice()
                     child: Image.asset('images/dice$leftDiceNumber.png')),
               ),
             ),
@@ -59,15 +62,7 @@ class _DicePaceState extends State<DicePace> {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: FlatButton(
-                    onPressed: () {
-                      setState(() {
-                        leftDiceNumber = Random().nextInt(6) + 1;
-                        rightDiceNumber = Random().nextInt(6) + 1;
-
-                        print('Pressed left button ($leftDiceNumber)');
-                        print('Pressed right number ($rightDiceNumber)');
-                      });
-                    },
+                    onPressed: chageNumberOfDice,
                     child: Image.asset('images/dice$rightDiceNumber.png'),
                   ),
                 )),
