@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,25 +11,46 @@ void main() {
           title: Text('Dicee'),
           backgroundColor: Colors.red,
         ),
-        body: DicePage(),
+        body: DicePace(),
       ),
     ),
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePace extends StatefulWidget {
+  @override
+  _DicePaceState createState() => _DicePaceState();
+}
+
+class _DicePaceState extends State<DicePace> {
+  int leftDiceNumber = 1;
+  int rightDiceNumber = 2;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    // leftDiceNumber = 4; // This will affect to setStage() this will take 4 in any case
+
+    return SafeArea(
       child: Center(
         child: Row(
           children: [
             Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Image(image: AssetImage('images/dice1.png')),
-                )),
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        leftDiceNumber = Random().nextInt(6) + 1;
+                        rightDiceNumber = Random().nextInt(6) + 1;
+
+                        print('Pressed left button ($leftDiceNumber)');
+                        print('Pressed right number ($rightDiceNumber)');
+                      });
+                    },
+                    child: Image.asset('images/dice$leftDiceNumber.png')),
+              ),
+            ),
             // SizedBox(
             //   width: 20,
             // ),
@@ -35,7 +58,18 @@ class DicePage extends StatelessWidget {
                 flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Image.asset('images/dice2.png'),
+                  child: FlatButton(
+                    onPressed: () {
+                      setState(() {
+                        leftDiceNumber = Random().nextInt(6) + 1;
+                        rightDiceNumber = Random().nextInt(6) + 1;
+
+                        print('Pressed left button ($leftDiceNumber)');
+                        print('Pressed right number ($rightDiceNumber)');
+                      });
+                    },
+                    child: Image.asset('images/dice$rightDiceNumber.png'),
+                  ),
                 )),
           ],
         ),
